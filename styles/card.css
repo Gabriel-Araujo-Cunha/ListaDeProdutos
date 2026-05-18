@@ -1,0 +1,38 @@
+.img-sobremesa {
+  border-radius: 10px;
+  width: 100%;
+}
+
+.products-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.product-card {
+  list-style: none;
+}
+
+.add-to-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  margin: 15px 0px;
+  background-color: #ffffffff;
+}
+
+.add-to-cart img {
+  background-color: transparent;
+}
+
+.add-to-cart:hover {
+  background-color: #d85527;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}

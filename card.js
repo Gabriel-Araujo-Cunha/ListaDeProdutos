@@ -74,6 +74,11 @@ const products = [
 
 let cart = [];
 
+const checkoutBtn = document.getElementById("checkout-btn");
+const modalOverlay = document.getElementById("modal-overlay");
+const modalItems = document.getElementById("modal-items");
+const modalTotalPrice = document.getElementById("modal-total-price");
+const newOrderBtn = document.getElementById("new-order-btn");
 const cartItems = document.getElementById("cart-items");
 const productsGrid = document.getElementById("products-grid");
 
@@ -88,15 +93,19 @@ function renderCart() {
       </div>
     `;
   });
+
+  const totalPriceElement = document.getElementById("cart-total-price");
+  const total = cart.reduce((accumulator, item) => {
+    return accumulator + item.price * item.quantity;
+  }, 0);
+  totalPriceElement.textContent = `R$ ${total.toFixed(2)}`;
 }
 
 function renderProducts() {
   productsGrid.innerHTML = "";
 
   products.forEach((product) => {
-    const productInCart = cart.find(
-      (item) => item.id === product.id
-    );
+    const productInCart = cart.find((item) => item.id === product.id);
 
     productsGrid.innerHTML += `
       <li class="product-card">
@@ -175,28 +184,23 @@ function addCartEvents() {
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-
       const productId = Number(button.dataset.id);
 
       const selectedProduct = products.find(
-        (product) => product.id === productId
+        (product) => product.id === productId,
       );
 
       const existingProduct = cart.find(
-        (item) => item.id === selectedProduct.id
+        (item) => item.id === selectedProduct.id,
       );
 
       if (existingProduct) {
-
         existingProduct.quantity++;
-
       } else {
-
         cart.push({
           ...selectedProduct,
           quantity: 1,
         });
-
       }
 
       renderProducts();
@@ -206,16 +210,12 @@ function addCartEvents() {
 }
 
 document.addEventListener("click", (event) => {
-
   const increaseButton = event.target.closest(".increase");
 
   if (increaseButton) {
-
     const productId = Number(increaseButton.dataset.id);
 
-    const productInCart = cart.find(
-      (item) => item.id === productId
-    );
+    const productInCart = cart.find((item) => item.id === productId);
 
     productInCart.quantity++;
 
@@ -225,26 +225,17 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("click", (event) => {
-
   const decreaseButton = event.target.closest(".decrease");
 
   if (decreaseButton) {
-
     const productId = Number(decreaseButton.dataset.id);
 
-    const productInCart = cart.find(
-      (item) => item.id === productId
-    );
+    const productInCart = cart.find((item) => item.id === productId);
 
     if (productInCart.quantity > 1) {
-
       productInCart.quantity--;
-
     } else {
-
-      cart = cart.filter(
-        (item) => item.id !== productId
-      );
+      cart = cart.filter((item) => item.id !== productId);
     }
 
     renderProducts();
@@ -254,3 +245,44 @@ document.addEventListener("click", (event) => {
 
 renderProducts();
 renderCart();
+
+checkoutBtn.addEventListener("click", () => {
+
+  modalOverlay.classList.remove("hidden");
+
+  renderModal();
+
+});
+
+function renderModal() {
+
+  modalItems.innerHTML = "";
+
+  cart.forEach((item) => {
+
+    modalItems.innerHTML += `
+      <div class="modal-item">
+        <p>${item.quantity}x ${item.name}</p>
+        <span>R$ ${(item.price * item.quantity).toFixed(2)}</span>
+      </div>
+    `;
+
+  });
+
+  const total = cart.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
+
+  modalTotalPrice.textContent = `R$ ${total.toFixed(2)}`;
+}
+
+newOrderBtn.addEventListener("click", () => {
+
+  cart = [];
+
+  renderCart();
+  renderProducts();
+
+  modalOverlay.classList.add("hidden");
+
+});

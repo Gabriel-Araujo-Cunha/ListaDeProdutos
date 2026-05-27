@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/main.css" />
-    <link rel="stylesheet" href="styles/card.css">
+    <link rel="stylesheet" href="styles/card.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,9 +23,7 @@
     <main class="container">
       <section class="products-section">
         <h1 class="title">Sobremesas</h1>
-        <ul class="products-list" id="products-grid">
-
-        </ul>
+        <ul class="products-list" id="products-grid"></ul>
       </section>
 
       <aside class="cart">
@@ -34,8 +32,37 @@
         <div class="cart-empity" id="cart-items">
           <p>Seu pedido</p>
         </div>
+
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total:</span>
+            <strong id="cart-total-price">R$ 0,00</strong>
+          </div>
+
+          <button class="checkout-btn" id="checkout-btn">
+            Finalizar Pedido
+          </button>
+        </div>
       </aside>
     </main>
+
+    <div class="modal-overlay hidden" id="modal-overlay">
+      <div class="order-modal">
+        <h2>✅ Pedido Confirmado</h2>
+
+        <p class="modal-subtitle">Obrigado pela compra!</p>
+
+        <div id="modal-items"></div>
+
+        <div class="modal-total">
+          <span>Total</span>
+          <strong id="modal-total-price">R$ 0,00</strong>
+        </div>
+
+        <button id="new-order-btn" class="new-order-btn">Novo Pedido</button>
+      </div>
+    </div>
+
     <script src="./card.js"></script>
   </body>
 </html>

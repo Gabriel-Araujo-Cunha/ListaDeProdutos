@@ -68,12 +68,18 @@ body {
   position: sticky;
   top: 20px;
   margin-top: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 .cart-title {
   color: #d85527;
   font-family: "Rubik", sans-serif;
   margin-bottom:20px;
+}
+
+.order-modal {
+    font-family: "Rubik", sans-serif;
 }
 
 
